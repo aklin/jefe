@@ -2,19 +2,18 @@ package com.github.aklin.jefe.ui.browser;
 
 import com.github.aklin.jefe.AbstractFilesystemBrowser;
 import static com.github.aklin.jefe.AbstractFilesystemBrowser.getBytesToSize;
-import com.github.aklin.jefe.NaiveDirectoryBrowser;
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import java.util.Vector;
 import javax.swing.AbstractAction;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
+import net.miginfocom.swing.MigLayout;
 
 /**
  *
  */
-public class TableBrowser extends AbstractBrowser {
+public final class TableBrowser extends AbstractBrowser {
 
 	private final JTable tbl;
 	private final DefaultTableModel model;
@@ -24,12 +23,21 @@ public class TableBrowser extends AbstractBrowser {
 			final AbstractFilesystemBrowser browser) {
 		super(onItemSelected, onItemHover, browser, null);
 
+		setLayout(new MigLayout());
+
 		model = new DefaultTableModel();
 		tbl = new JTable(model);
 
-		model.addColumn("ext");
+		model.addColumn("Type");
 		model.addColumn("Name");
 		model.addColumn("Size");
+
+		tbl.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+		tbl.getColumnModel().getColumn(0).setMaxWidth(135);
+		tbl.setRowHeight((tbl.getRowHeight()*3)/2);
+		populate();
+
+		this.add(new JScrollPane(tbl), "push,grow");
 	}
 
 	private void populate() {
@@ -52,11 +60,11 @@ public class TableBrowser extends AbstractBrowser {
 
 	@Override
 	public ImmutableList<File> getSelectedNodes() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return ImmutableList.of();
 	}
 
 	@Override
 	public boolean hasSelection() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return tbl.getSelectedRowCount() > 0;
 	}
 }
