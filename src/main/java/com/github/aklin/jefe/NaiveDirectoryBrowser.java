@@ -1,8 +1,8 @@
 package com.github.aklin.jefe;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
@@ -16,11 +16,14 @@ public class NaiveDirectoryBrowser extends AbstractFilesystemBrowser {
 	}
 
 	@Override
-	public List<File> getAvailableNodesAtPath() {
-		final ArrayList<File> ret;
-		ret = new ArrayList<>(FileUtils.listFiles(this.getAbsoluteFile(), FileFilterUtils.trueFileFilter(), null));
+	public ImmutableList<File> getAvailableNodesAtPath() {
+		final Builder<File> b = ImmutableList.builder();
 
-		return ret;
+		return b.addAll(FileUtils.listFiles(
+				this.getAbsoluteFile(),
+				FileFilterUtils.trueFileFilter(),
+				null))
+				.build();
 	}
 
 	@Override
