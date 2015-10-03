@@ -1,7 +1,8 @@
 package com.github.aklin.jefe.ui;
 
-import com.github.aklin.jefe.ui.browser.ListBrowser;
 import com.github.aklin.jefe.NaiveDirectoryBrowser;
+import com.github.aklin.jefe.ui.browser.AbstractBrowser;
+import com.github.aklin.jefe.ui.browser.TableBrowser;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -14,7 +15,7 @@ public class Window extends JFrame {
 
 	private static final AbstractAction emptyAction;
 
-	private final ListBrowser browser;
+	private final AbstractBrowser browser;
 	private final BottomPanel bottom;
 
 	static {
@@ -28,7 +29,7 @@ public class Window extends JFrame {
 	public Window() {
 		this.setLayout(new MigLayout("gapy 0"));
 
-		browser = new ListBrowser(emptyAction, emptyAction, new NaiveDirectoryBrowser(""));
+		browser = new TableBrowser(emptyAction, emptyAction, new NaiveDirectoryBrowser(""));
 		bottom = new BottomPanel(browser);
 
 		this.add(browser, "push,grow");

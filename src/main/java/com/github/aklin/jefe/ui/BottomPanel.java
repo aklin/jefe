@@ -1,7 +1,7 @@
 package com.github.aklin.jefe.ui;
 
 import static com.github.aklin.jefe.AbstractFilesystemBrowser.getFileListSizeString;
-import com.github.aklin.jefe.ui.browser.ListBrowser;
+import com.github.aklin.jefe.ui.browser.AbstractBrowser;
 import com.google.common.collect.ImmutableList;
 import java.io.File;
 import javax.swing.JLabel;
@@ -13,11 +13,11 @@ import net.miginfocom.swing.MigLayout;
  */
 public final class BottomPanel extends JPanel {
 
-	private final ListBrowser browser;
+	private final AbstractBrowser browser;
 	private final JLabel sizeLabel;
 	private final JLabel sizeValue;
 
-	public BottomPanel(final ListBrowser activeBrowser) {
+	public BottomPanel(final AbstractBrowser activeBrowser) {
 		if (activeBrowser == null)
 			throw new IllegalArgumentException();
 
